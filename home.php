@@ -29,7 +29,7 @@
     $sql = $mysqli -> query("SELECT * FROM asin WHERE storefront_id=". $_SESSION['last_id']); 
     while ($obj = $sql -> fetch_assoc()) {
          //echo $obj->asin_id . ' ' .$obj->price; 
-         $w->writeSheetRow('Sheet1', $obj);
+         $w->writeSheetRow('Sheet2', $obj);
     } 
     $w->writeToFile('ex.xlsx'); 
     $sql -> free_result(); 
@@ -60,7 +60,7 @@
             margin: auto;
             border: 0px;
             text-align: center;
-            justify-content: center;
+            justify-content: center; 
         }
         .sub-container{
             position: absolute;
@@ -71,6 +71,7 @@
         }
         section{
             text-align: left;
+            width: 100%;
         }
         form{
             margin: 10px 0px;
@@ -79,7 +80,7 @@
         a{
             text-decoration: none;
             font-weight: 400;
-            font-size: 14px;
+            font-size: 14px; 
         }
         p{
             font-weight: 400;
@@ -92,20 +93,51 @@
             margin: 8px 0;
             box-sizing: border-box;
         } 
+        p > input[type="submit"]{
+            float: left;
+            cursor: pointer;
+        }
+
+        p > button#clear_{
+            float: right;
+            cursor: pointer;
+        }
+ 
+        .alert-danger{ 
+            background-color:red; /* Red */
+            color: white;
+            justify-content: space-around;
+            border: none;
+            padding: 10px 20px;
+            box-shadow: none; 
+        }  
+        .alert-primary{ 
+            background-color: rgb(88, 101, 223) ;  
+            color: white;
+            justify-content: space-around;
+            border: none;
+            padding: 10px 20px;
+            box-shadow: none; 
+        }
+        .alert-success{
+
+        }
     </style>
     <body>
         <div class="container">
             <div class="sub-container">
                 <section> 
-                    <h1>Insert into excel </h1>
+                    <h1>Insert Into Excel </h1>
                     <h3>Day: <?php echo $_SESSION["last_id"];?><h3>
                 
                     <p>
                         <span>Total Asin for today: <?php echo countAsin($mysqli, $last_id); ?></span>
                     </p>     
-                        <div id="alert-message">  
-                            <?php echo $message; ?>
-                        </div>
+
+                    <div id="alert-message">  
+                        <?php echo $message; ?>
+                    </div>
+ 
                     <form action="#" id="form_"method="post">
                         <p>
                             <label>Asin</label>
@@ -115,9 +147,14 @@
                             <label>Price</label>
                             <input type="number" step="0.01" required name="price" placeholder="Input Price here">
                         </p> 
-                        <input type="submit" name="submit" value="Submit">
+                        <p>
+                            <input type="submit" name="submit"  class="alert-primary" value="Submit">
+                        </p>
+                        <p> 
+                            <button id="clear_" class="alert-danger">Clear</button>
+                        </p>
                     </form>
-                    <button id="clear_">Clear</button>
+                    <br>
                     <div>                    
                         <p>    
                             <a href="./view.php">View All Data</a>

@@ -11,7 +11,9 @@ $(document).ready(function(){
   });  
 
 
-  $('#clear_').on('click', function(){ 
+  $('#clear_').on('click', function(e){ 
+    e.preventDefault();
+    $('#alert-message').empty();
     $('#form_')[0].reset();
     //$('#asin_').val(''); 
   });
